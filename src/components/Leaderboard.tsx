@@ -2,6 +2,7 @@ import React from "react";
 import { Ranking } from "../interfaces/Ranking";
 import styles from "./Leaderboard.module.css";
 import { Category } from "../interfaces/Category";
+import { loadLeaderboard } from "../services/loadLeaderboard";
 
 interface LeaderboardProps {
   rankings: Ranking[];
@@ -9,6 +10,9 @@ interface LeaderboardProps {
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ rankings, categories }) => {
+  //  TODO use the information
+  const leaderboard = loadLeaderboard();
+
   return (
     <div className={styles.container}>
       <h2> Carnival Leaderboard - SP</h2>
