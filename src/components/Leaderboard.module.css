@@ -1,0 +1,39 @@
+/* CSS */
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboard_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  font-weight: bold;
+}
+
+.leaderboard_header .header_item {
+  flex-basis: 50%;
+  color: #c5c5c5;
+}
+
+.leaderboard_line {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard_line_large {
+  flex-basis: 70%;
+}
+
+.leaderboard_line_small {
+  flex-basis: 30%;
+}

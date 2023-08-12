@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+# Why the Carnival Results?
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In Brazil, refers to the process of calculating and announcing the scores and rankings of the participating samba schools or carnival parades after the performances. It is an important event that determines the winners of the carnival competition.
 
-## Available Scripts
+I don't have strong enthusiasm for carnival, but I don't dislike it either. However, there is a sentimental reason why I chose this project to build my portfolio. This was probably the first relevant project that I developed using a JS framework, while I was a developer working at Grupo Bandeirantes, a TV channel at Brazil. I worked with their internet portal team and was responsible for developing the leaderboard for the Carnival coverage. It was a project that I take great pride in.
 
-In the project directory, you can run:
+In addition to that, it is a project with a narrow scope but provides an opportunity to apply a variety of knowledge and skills.
 
-### `yarn start`
+# Ranking Rules
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1 - At the end of the results apuration, the school with the highest grade will be declared Winner;
+2 - The two schools with the lowest grades will be relegated and will compete in the access group on the following year;
+3 - For building the final grade, the schools are judged in several categories with grades from 8 to 10. They are judged for up to 5 specialists and the lowest grade of each category is discarted;
+3 - Tiebreaking criteria:
+    - First criteria: Before the apuration, a random category is sorted for the tiebreaking
+    - Second criteria: The total grade including the discarted grades;
+    - Third criteria: Will be declared winner the School with more 10 grades (I invent this criteria for adding complexy in my project);
+    - If the draw persist, the next criteria is the higgest grade per category, starting from the last and checking in decrescenting order. The final category grades of the tied schools are compared and, if they are different, the school with the highest one are declared winner.
+    - In a case when the tie persists, both schools are declared winner of
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+# Code Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- In the real life, this is a read-heavy application with small space for caching, since the screen needs to be updated as grade are announced. 
+- Two needs here:
+    - A very fast store for current data retrive. At this point I am analyzing two options: saving at redis or in a simple json file.
+    - Since data audit is also important for the application scenario, I'll save a history of the leaderboard after every single grade announced, probably in a mongodb instance.
 
-### `yarn build`
+3 possible Redis collections:
+- Current Apuration:
+    - Category
+    - Judge
+- Categories for apuration
+- Ranking
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Use cases
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1 - Admin configures the leaderboard (adding schools, categories and judges).
+2 - Admin runs a new apuration.
+3 - Admin adds the grades of each judge for the categories.
+3 - User sees the current leaderboard. 
+4 - User sees all grade updates in real time.
