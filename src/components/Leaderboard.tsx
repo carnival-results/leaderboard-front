@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Ranking } from "../interfaces/Ranking";
 import styles from "./Leaderboard.module.css";
 import { Category } from "../interfaces/Category";
-import { loadLeaderboard } from "../services/loadLeaderboard";
+import { loadCurrentRanking } from "../services/loadRanking";
 
-interface LeaderboardProps {
-  rankings: Ranking[];
-  categories: Category[];
-}
+const Leaderboard = () => {
+  const [rankings, setRankings] = React.useState<Ranking[]>([]);
 
-const Leaderboard: React.FC<LeaderboardProps> = ({ rankings, categories }) => {
-  //  TODO use the information
-  const leaderboard = loadLeaderboard();
+  // TODO: Just sample data for, will be built over the own ranking
+  const categories: Category[] = [
+    { id: 1, name: "Fantasia", tiebreaking: true },
+    { id: 2, name: "Comissão de Frente", tiebreaking: true },
+  ];
+
+  const getLeaderboard = async () => {
+    const currentRanking: Ranking[] = await loadCurrentRanking();
+    setRankings(currentRanking);
+  };
+
+  useEffect(() => {
+    getLeaderboard();
+  }, []);
 
   return (
     <div className={styles.container}>
